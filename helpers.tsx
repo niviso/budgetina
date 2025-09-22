@@ -5,7 +5,7 @@ export function toLocalCurrency(num: number): string {
   const parsedNum = new Intl.NumberFormat("sv-SE", { style: "currency", currency: "SEK", maximumSignificantDigits: 10 }).format(
     fixedNum
   );
-  
+
   return parsedNum
 }
 
@@ -29,3 +29,8 @@ export function getTimestamp(): string {
 export async function setItem(key: string, data: string) {
   await AsyncStorage.setItem(key, data);
 }
+
+export function formatCurrency(number: string): string {
+    const no = number.toString().replace(/\s/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return no;
+  };
