@@ -4,7 +4,6 @@ import { useRouter } from "../context/router";
 import { Expence } from "./Expence";
 import { Home } from "./Home";
 import { Loans } from "./Loans";
-import { BlurView } from 'expo-blur';
 import DropdownMenu from '../components/DropDownMenu';
 
 const routes: React.ComponentType[] = [Home, Expence, Loans];

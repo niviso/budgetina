@@ -61,7 +61,7 @@ const CircularProgressBar = ({
             r={radius - strokeWidth / 2}
             strokeWidth={strokeWidth}
           />
-            <AnimatedCircle
+          <AnimatedCircle
             stroke="black"
             fill="none"
             opacity={0.2}

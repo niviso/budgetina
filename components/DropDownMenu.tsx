@@ -4,11 +4,15 @@ import Animated, { useSharedValue, useAnimatedProps, withRepeat, withTiming, Eas
 import { BlurView } from 'expo-blur';
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
-
-const DropdownMenu = ({ children, options, direction = 'down' }) => {
+interface DropDownProps {
+  children: React.ReactNode;
+  options: []; //Add type in future
+  direction: 'down' | 'up';
+}
+const DropdownMenu = ({ children, options, direction = 'down' }: DropDownProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
-  const buttonRef = useRef(null);
+  const buttonRef = useRef<any>(null);
   const blurIntensity = useSharedValue(0);
 
   // Animate blur intensity when dropdown is visible
@@ -23,7 +27,7 @@ const DropdownMenu = ({ children, options, direction = 'down' }) => {
         true
       );
     } else {
-        blurIntensity.value = 0
+      blurIntensity.value = 0
     }
   }, [isVisible]);
 
@@ -32,7 +36,7 @@ const DropdownMenu = ({ children, options, direction = 'down' }) => {
   }));
 
   const handlePress = () => {
-    buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
+    buttonRef?.current?.measure((x: number, y: number, width: number, height: number, pageX: number, pageY: number) => {
       setPosition({
         top: direction === 'down' ? pageY + height : pageY - 200,
         left: pageX,
@@ -59,16 +63,16 @@ const DropdownMenu = ({ children, options, direction = 'down' }) => {
         transparent
         onRequestClose={() => setIsVisible(false)}
       >
-                  <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => setIsVisible(false)}
-            style={styles.modalOverlay}
-          >
-        <AnimatedBlurView
-          animatedProps={animatedProps}
-          tint="systemChromeMaterial"
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => setIsVisible(false)}
           style={styles.modalOverlay}
         >
+          <AnimatedBlurView
+            animatedProps={animatedProps}
+            tint="systemChromeMaterial"
+            style={styles.modalOverlay}
+          >
             <View
               style={[
                 styles.dropdown,
@@ -92,8 +96,8 @@ const DropdownMenu = ({ children, options, direction = 'down' }) => {
                 )}
               />
             </View>
-                    </AnimatedBlurView>
-          </TouchableOpacity>
+          </AnimatedBlurView>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
