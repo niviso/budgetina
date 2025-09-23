@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { toLocalCurrency, getTimestamp, formatCurrency } from "../helpers";
+import { toLocalCurrency, getTimestamp, formatCurrency } from "../helpers/helpers";
 import Input from "../components/Input";
 import InputSlider from "../components/InputSlider";
 import Button from "./Button";
@@ -10,7 +10,7 @@ import { useRouter } from "../context";
 import DateTimePicker from "../components/DateTimePicker";
 import BaseComponentWrapper from "./BaseComponentWrapper";
 import { calculateLoanCost } from "../helpers/loans";
-import { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES } from "../constants";
+import { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES } from "../helpers/constants";
 
 
 export function Loans() {

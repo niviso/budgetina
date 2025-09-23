@@ -1,6 +1,6 @@
 import { Text, ScrollView, View, TouchableOpacity } from "react-native";
 import { useData } from "../context/data";
-import { toLocalCurrency } from "../helpers";
+import { toLocalCurrency } from "../helpers/helpers";
 import Dialog from "react-native-dialog";
 import CircularProgressBar from "../components/CircularProgressBar";
 import { Expence, Loan, RecurringExpence } from "../types";
