@@ -96,8 +96,8 @@ export function Home(props: any) {
     <ScrollView>
       <View style={{ marginVertical: 30 }}>
         <CircularProgressBar progress={precentageSpentOfBudget()} color="pink" title="Budget spent" />
-        <Text style={{ textAlign: "center", paddingTop: 15, fontSize: 18 }}>{`Du har ${toLocalCurrency(budgetLeft())}kr kvar.`}</Text>
-        <Text style={{ textAlign: "center", paddingVertical: 0, fontSize: 16, opacity: 0.7 }}>Du spenderar {toLocalCurrency(Math.round(state.expences.reduce((total, expence) => total + expence.amount, 0) / 30))}kr per dag</Text>
+        <Text style={{ textAlign: "center", paddingTop: 15, fontSize: 18 }}>{`Du har ${toLocalCurrency(budgetLeft())} kvar.`}</Text>
+        <Text style={{ textAlign: "center", paddingVertical: 0, fontSize: 16, opacity: 0.7 }}>Du spenderar {toLocalCurrency(Math.round(state.expences.reduce((total, expence) => total + expence.amount, 0) / 30))} per dag</Text>
 
       </View>
       <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>

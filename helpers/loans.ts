@@ -1,32 +1,32 @@
 
-interface MorgageMonthlyCostType{
-                month:number;
-            payment: number;
-            principal: number;
-            interest: number;
-            remainingBalance: number
+interface MorgageMonthlyCostType {
+    month: number;
+    payment: number;
+    principal: number;
+    interest: number;
+    remainingBalance: number
 }
-interface MortgageCostType{
+interface MortgageCostType {
     totalPaid: number;
     schedule: MorgageMonthlyCostType[];
     totalLoanCost: number;
 }
 
 function calculateLoanCost(
-    initialLoan:number,
-    paidOff:number,
-    interestRate:number,
-    amortizationRate:number,
-    years:number
-):MortgageCostType {
+    initialLoan: number,
+    paidOff: number,
+    interestRate: number,
+    amortizationRate: number,
+    years: number
+): MortgageCostType {
     const remainingPrincipal = initialLoan - paidOff;
-    const monthlyInterestRate = (interestRate/100) / 12;
-    const monthlyAmortizationRate = (amortizationRate/100) / 12;
+    const monthlyInterestRate = (interestRate / 100) / 12;
+    const monthlyAmortizationRate = (amortizationRate / 100) / 12;
     const months = years * 12;
 
     let remainingBalance = remainingPrincipal;
-    let totalPaid:number = 0;
-    const schedule:MorgageMonthlyCostType[] = [];
+    let totalPaid: number = 0;
+    const schedule: MorgageMonthlyCostType[] = [];
 
     for (let month = 1; month <= months; month++) {
         const monthlyAmortization = remainingBalance * monthlyAmortizationRate;
@@ -52,24 +52,24 @@ function calculateLoanCost(
     };
 }
 
-function calculateCreditCost(principal:number,annualInterestRate:number,months:number){
+function calculateCreditCost(principal: number, annualInterestRate: number, months: number) {
 
 
-// Calculate monthly interest rate
-const monthlyInterestRate = annualInterestRate / 12;
+    // Calculate monthly interest rate
+    const monthlyInterestRate = annualInterestRate / 12;
 
-// Calculate monthly payment using the installment loan formula
-const monthlyPayment =
-  (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, months)) /
-  (Math.pow(1 + monthlyInterestRate, months) - 1);
+    // Calculate monthly payment using the installment loan formula
+    const monthlyPayment =
+        (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, months)) /
+        (Math.pow(1 + monthlyInterestRate, months) - 1);
 
-// Calculate total paid
-const totalPaid = monthlyPayment * months;
+    // Calculate total paid
+    const totalPaid = monthlyPayment * months;
 
-return {
-    totalPaid: totalPaid,
-    monthlyPayment: monthlyPayment
+    return {
+        totalPaid: totalPaid,
+        monthlyPayment: monthlyPayment
+    }
 }
-}
 
-export {calculateLoanCost, calculateCreditCost};
+export { calculateLoanCost, calculateCreditCost };

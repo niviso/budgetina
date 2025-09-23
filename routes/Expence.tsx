@@ -6,11 +6,8 @@ import { useRouter } from "../context";
 import { useData } from "../context/data";
 import Toggle from "../components/Toggle";
 import AddCategoryButton from "../components/AddCategoryButton";
-interface ExpenceProps {
-  // Add any props here if needed
-}
 
-export function Expence(_props: ExpenceProps) {
+export function Expence() {
   const [input, setInput] = useState("");
   const [inputAmount, setInputAmount] = useState("0");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -33,6 +30,7 @@ export function Expence(_props: ExpenceProps) {
       setSelectedCategories(selectedCategories.filter((c) => c !== category));
     }
   };
+  console.log("AAAA");
 
   return (
     <View style={styles.container}>
