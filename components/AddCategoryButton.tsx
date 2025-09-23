@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Modal, StyleSheet } from 'react-native';
-
-const AddCategoryButton = ({ onAddCategory }) => {
+interface AddCategoryButtonProps {
+  onAddCategory: Function;
+}
+const AddCategoryButton = ({ onAddCategory }: AddCategoryButtonProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -54,8 +56,7 @@ const styles = StyleSheet.create({
     padding: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 10
+    borderWidth: 1
   },
   buttonText: {
     color: 'black',

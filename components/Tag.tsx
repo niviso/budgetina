@@ -3,7 +3,7 @@ import { TouchableOpacity, Text } from 'react-native';
 
 export function Tag({ title, onSelect, onDeselect }: any) {
   const [selected, setSelected] = useState(false);
-  const [color,setColor] = useState(randomHsl(80));
+  const [color, setColor] = useState(randomHsl(80));
   function randomHsl(light: number): string {
     return 'hsla(' + Math.random() * 360 + ', 100%, ' + light + '%, 1)';
   }

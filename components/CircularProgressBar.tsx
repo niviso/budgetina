@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
-import Svg, { Circle, Defs, Filter, FeDropShadow } from 'react-native-svg';
+import Svg, { Circle } from 'react-native-svg';
 
 interface CircularProgressBarProps {
   progress: number; // 0 to 100
