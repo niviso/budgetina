@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
+import { FONT_SIZE, SPACING } from '../helpers/constants';
 
 interface CircularProgressBarProps {
   progress: number; // 0 to 100
@@ -46,8 +47,8 @@ const CircularProgressBar = ({
   const AnimatedCircle = Animated.createAnimatedComponent(Circle);
   return (
     <>
-      {title && <View style={{ paddingVertical: 15 }}>
-        <Text style={{ fontSize: 28, fontWeight: "bold", textAlign: "center" }}>
+      {title && <View style={{ paddingVertical: SPACING.MD }}>
+        <Text style={{ fontSize: FONT_SIZE.XL, fontWeight: "bold", textAlign: "center" }}>
           {title}
         </Text>
       </View>}

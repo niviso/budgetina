@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { FONT_SIZE, SPACING } from "../helpers/constants";
 
 interface CollapsibleProps {
   title: string;
@@ -42,11 +43,11 @@ export default function Collapsible({ title, body, children, open = false }: Col
 
 const styles = StyleSheet.create({
   header: {
-    padding: 15,
+    padding: SPACING.MD,
     backgroundColor: "#eaeaea",
     display: "flex",
-    gap: 15,
-    marginTop: 15,
+    gap: SPACING.MD,
+    marginTop: SPACING.MD,
     justifyContent: "space-between",
     flexDirection: "row",
     borderTopLeftRadius: 10,
@@ -59,14 +60,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   content: {
-    padding: 15,
+    padding: SPACING.MD,
     backgroundColor: "#eaeaea",
     display: "flex",
-    gap: 15,
+    gap: SPACING.MD,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
   bodyText: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.MD,
   },
 });

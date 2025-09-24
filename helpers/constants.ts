@@ -13,6 +13,13 @@ const SPACING = {
     XL: 30
 } as const;
 
+const FONT_SIZE = {
+    SM: 12,
+    MD: 16,
+    LG: 22,
+    XL: 32
+} as const
+
 const STEP = {
     ONE_TENTH: 0.1,
     QUARTER: 0.25,
@@ -54,4 +61,4 @@ const COLORS = [
 ] as const;
 
 
-export { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES, COLORS }
+export { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES, COLORS, FONT_SIZE }

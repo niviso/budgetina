@@ -9,8 +9,8 @@ import { useData } from "../context/data";
 import { useRouter } from "../context";
 import DateTimePicker from "../components/DateTimePicker";
 import BaseComponentWrapper from "./BaseComponentWrapper";
-import { calculateLoanCost } from "../helpers/loans";
-import { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES } from "../helpers/constants";
+import { calculateLoanCost } from "../helpers/loanCalculations";
+import { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES, FONT_SIZE } from "../helpers/constants";
 
 
 export function Loans() {
@@ -212,12 +212,12 @@ const styles = StyleSheet.create({
     padding: SPACING.LG,
   },
   headerTitle: {
-    fontSize: 22,
+    fontSize: FONT_SIZE.LG,
     fontWeight: "600",
   },
   headerDescription: {
     marginTop: SPACING.LG,
-    fontSize: 18,
+    fontSize: FONT_SIZE.MD,
     lineHeight: 25,
   },
   container: {
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     gap: SPACING.LG,
   },
   statText: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.MD,
   },
   loanTypesContainer: {
     display: "flex",
@@ -250,6 +250,6 @@ const styles = StyleSheet.create({
     height: 20,
   },
   loanTypeText: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.MD,
   },
 });

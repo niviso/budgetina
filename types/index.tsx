@@ -15,6 +15,11 @@ export interface RecurringExpence {
     deploy: "weekly" | "monthly" | "yearly";
     deployDate: string;
 }
+export interface DropDownMenuOptionsType{
+    label: string;
+    value: string;
+    trigger: Function;
+}
 export interface Loan {
     id: number;
     total: number;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
+import { SPACING } from '../helpers/constants';
 
 export function Tag({ title, onSelect, onDeselect }: any) {
   const [selected, setSelected] = useState(false);
@@ -18,7 +19,7 @@ export function Tag({ title, onSelect, onDeselect }: any) {
 
   return (
     <TouchableOpacity onPress={() => setSelected(!selected)}>
-      <Text style={{ backgroundColor: color, padding: 15, textAlign: "center", borderRadius: 15, fontWeight: 600, borderWidth: 1, borderColor: selected ? 'black' : "#eaeaea", opacity: selected ? 0.5 : 1 }}>{title}</Text>
+      <Text style={{ backgroundColor: color, padding: SPACING.MD, textAlign: "center", borderRadius: SPACING.MD, fontWeight: 600, borderWidth: 1, borderColor: selected ? 'black' : "#eaeaea", opacity: selected ? 0.5 : 1 }}>{title}</Text>
     </TouchableOpacity>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Modal, StyleSheet } from 'react-native';
+import { FONT_SIZE, SPACING } from '../helpers/constants';
 interface AddCategoryButtonProps {
   onAddCategory: Function;
 }
@@ -53,14 +54,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 3,
     display: "flex",
-    padding: 15,
+    padding: SPACING.MD,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1
   },
   buttonText: {
     color: 'black',
-    fontSize: 14,
+    fontSize: FONT_SIZE.MD,
     fontWeight: 'bold',
   },
   modalContainer: {

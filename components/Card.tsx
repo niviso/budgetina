@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import CircularProgressBar from "../components/CircularProgressBar";
+import { FONT_SIZE, SPACING } from "../helpers/constants";
 
 export function Card({ children, title, body, color, backgroundColor }: any) {
   // Styles object
@@ -8,18 +9,18 @@ export function Card({ children, title, body, color, backgroundColor }: any) {
       display: "flex",
       width: "100%",
       flexDirection: "row",
-      gap: 15,
-      padding: 15,
+      gap: SPACING.MD,
+      padding: SPACING.MD,
     },
     cardTextContainer: {
       display: "flex",
     },
     cardTitle: {
       fontWeight: "bold",
-      fontSize: 14,
+      fontSize: FONT_SIZE.MD,
     },
     cardBody: {
-      fontSize: 12,
+      fontSize: FONT_SIZE.SM,
     },
   });
 

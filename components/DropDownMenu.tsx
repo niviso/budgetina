@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet, FlatList } from 'react-native';
 import Animated, { useSharedValue, useAnimatedProps, withRepeat, withTiming, Easing } from 'react-native-reanimated';
 import { BlurView } from 'expo-blur';
-
+import { DropDownMenuOptionsType } from '../types';
+import { FONT_SIZE, SPACING } from '../helpers/constants';
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 interface DropDownProps {
   children: React.ReactNode;
-  options: []; //Add type in future
+  options: DropDownMenuOptionsType[]; //Add type in future
   direction: 'down' | 'up';
 }
 const DropdownMenu = ({ children, options, direction = 'down' }: DropDownProps) => {
@@ -124,8 +125,8 @@ const styles = StyleSheet.create({
   dropdown: {
     position: 'absolute',
     backgroundColor: '#fff',
-    borderRadius: 5,
-    elevation: 5,
+    borderRadius: SPACING.SM,
+    elevation: SPACING.SM,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -133,12 +134,12 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   option: {
-    padding: 15,
+    padding: SPACING.MD,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
   optionText: {
-    fontSize: 22,
+    fontSize: FONT_SIZE.LG,
   },
 });
 

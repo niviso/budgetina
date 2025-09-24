@@ -4,7 +4,7 @@ import { toLocalCurrency } from "../helpers/helpers";
 import CircularProgressBar from "../components/CircularProgressBar";
 import { Expence } from "../types";
 import { ProgressCard } from "../components/Card";
-import { COLORS,SPACING } from "../helpers/constants";
+import { COLORS,FONT_SIZE,SPACING } from "../helpers/constants";
 // Styles object
 export const styles = StyleSheet.create({
   progressContainer: {
@@ -14,12 +14,12 @@ export const styles = StyleSheet.create({
   progressText: {
     textAlign: "center",
     paddingTop: SPACING.MD,
-    fontSize: 18,
+    fontSize: FONT_SIZE.MD,
   },
   progressSubText: {
     textAlign: "center",
     paddingVertical: 0,
-    fontSize: 16,
+    fontSize: FONT_SIZE.MD,
     opacity: 0.7,
   },
   cardsWrapper: {

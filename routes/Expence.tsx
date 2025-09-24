@@ -6,6 +6,7 @@ import { useRouter } from "../context";
 import { useData } from "../context/data";
 import Toggle from "../components/Toggle";
 import AddCategoryButton from "../components/AddCategoryButton";
+import { FONT_SIZE, SPACING } from "../helpers/constants";
 
 export function Expence() {
   const [input, setInput] = useState("");
@@ -60,15 +61,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: SPACING.MD,
+    paddingBottom: SPACING.MD,
   },
   toggleText: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.MD,
   },
   container: {
-    padding: 15,
-    gap: 15,
+    padding: SPACING.MD,
+    gap: SPACING.MD,
   },
   categoryText: {
     padding: 0,
@@ -77,13 +78,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 15,
+    gap: SPACING.MD,
   },
   submitButton: {
     backgroundColor: "#ea99ea",
-    padding: 15,
-    marginTop: 15,
-    borderRadius: 15,
+    padding: SPACING.MD,
+    marginTop: SPACING.MD,
+    borderRadius: SPACING.MD,
     display: "flex",
     alignItems: "center",
   },
