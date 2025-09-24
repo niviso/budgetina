@@ -12,7 +12,7 @@ interface MortgageCostType {
     totalLoanCost: number;
 }
 
-function calculateLoanCost(
+function calculateMorgageCost(
     initialLoan: number,
     paidOff: number,
     extraAmorizatation: number,
@@ -57,7 +57,7 @@ function calculateLoanCost(
     };
 }
 
-function calculateCreditCost(principal: number, annualInterestRate: number, months: number) {
+function calculateFixedPaymentCost(principal: number, annualInterestRate: number, months: number) {
 
 
     // Calculate monthly interest rate
@@ -77,4 +77,4 @@ function calculateCreditCost(principal: number, annualInterestRate: number, mont
     }
 }
 
-export { calculateLoanCost, calculateCreditCost };
+export { calculateMorgageCost, calculateFixedPaymentCost };

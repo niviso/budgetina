@@ -20,6 +20,7 @@ export interface DropDownMenuOptionsType{
     value: string;
     trigger: Function;
 }
+
 export interface Loan {
     id: number;
     total: number;
