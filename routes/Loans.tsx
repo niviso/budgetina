@@ -9,9 +9,9 @@ import { useData } from "../context/data";
 import { useRouter } from "../context";
 import DateTimePicker from "../components/DateTimePicker";
 import BaseComponentWrapper from "./BaseComponentWrapper";
-import { calculateLoanCost } from "../helpers/loanCalculations";
+import { calculateMorgageCost } from "../helpers/calculations";
 import { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES, FONT_SIZE } from "../helpers/constants";
-
+import {t} from "../locale";
 
 export function Loans() {
   const [intrest, setIntrest] = useState<number>(INITIAL_LOAN_VALUES.INTREST_RATE);
@@ -28,7 +28,7 @@ export function Loans() {
 
   const { goTo } = useRouter();
   const { newLoan } = useData();
-  const loanDetails = calculateLoanCost(loan, paidEarlier, extraAmorizatation, intrest, amorizationRate, loanDuration);
+  const loanDetails = calculateMorgageCost(loan, paidEarlier, extraAmorizatation, intrest, amorizationRate, loanDuration);
 
   const getLoanStats = () => {
     const date = new Date("2025");
