@@ -1,16 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet, FlatList } from 'react-native';
-import Animated, { useSharedValue, useAnimatedProps, withRepeat, withTiming, Easing } from 'react-native-reanimated';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedProps,
+  withRepeat,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
 import { BlurView } from 'expo-blur';
 import { DropDownMenuOptionsType } from '../types';
 import { FONT_SIZE, SPACING } from '../helpers/constants';
+import Interaction from '../helpers/Interaction';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 interface DropDownProps {
   children: React.ReactNode;
   options: DropDownMenuOptionsType[]; //Add type in future
   direction: 'down' | 'up';
 }
-const DropdownMenu = ({ children, options, direction = 'down' }: DropDownProps) => {
+const DropdownMenu = ({
+  children,
+  options,
+  direction = 'down',
+}: DropDownProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
   const buttonRef = useRef<any>(null);
@@ -28,7 +48,7 @@ const DropdownMenu = ({ children, options, direction = 'down' }: DropDownProps) 
         true
       );
     } else {
-      blurIntensity.value = 0
+      blurIntensity.value = 0;
     }
   }, [isVisible]);
 
@@ -37,19 +57,30 @@ const DropdownMenu = ({ children, options, direction = 'down' }: DropDownProps) 
   }));
 
   const handlePress = () => {
-    buttonRef?.current?.measure((x: number, y: number, width: number, height: number, pageX: number, pageY: number) => {
-      setPosition({
-        top: direction === 'down' ? pageY + height : pageY - 200,
-        left: pageX,
-        width,
-      });
-      setIsVisible(true);
-    });
+    Interaction.on();
+    buttonRef?.current?.measure(
+      (
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        pageX: number,
+        pageY: number
+      ) => {
+        setPosition({
+          top: direction === 'down' ? pageY + height : pageY - 200,
+          left: pageX - 50,
+          width,
+        });
+        setIsVisible(true);
+      }
+    );
   };
 
   const handleSelect = (option) => {
     setIsVisible(false);
     option.trigger?.();
+    Interaction.off();
   };
 
   return (
@@ -92,6 +123,7 @@ const DropdownMenu = ({ children, options, direction = 'down' }: DropDownProps) 
                     style={styles.option}
                     onPress={() => handleSelect(item)}
                   >
+                    <FontAwesome6 name={item.icon} size={25} color="black" />
                     <Text style={styles.optionText}>{item.label}</Text>
                   </TouchableOpacity>
                 )}
@@ -125,18 +157,23 @@ const styles = StyleSheet.create({
   dropdown: {
     position: 'absolute',
     backgroundColor: '#fff',
-    borderRadius: SPACING.SM,
     elevation: SPACING.SM,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     zIndex: 1000,
+    borderRadius: 15,
+    overflow: 'hidden',
   },
   option: {
-    padding: SPACING.MD,
+    padding: SPACING.LG,
     borderBottomWidth: 1,
+    paddingHorizontal: SPACING.XL,
     borderBottomColor: '#eee',
+    display: "flex",
+    flexDirection: "row",
+    gap: 15
   },
   optionText: {
     fontSize: FONT_SIZE.LG,

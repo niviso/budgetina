@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View, Text, Switch, StyleSheet } from "react-native";
 import { FONT_SIZE, SPACING } from "../helpers/constants";
-
+import BaseComponentWrapper from "../routes/BaseComponentWrapper";
 interface ToggleProps {
   title: string;
   onChange: (value: boolean) => void;
@@ -16,6 +16,7 @@ export default function Toggle({ title, onChange }: ToggleProps) {
   };
 
   return (
+    <BaseComponentWrapper>
     <View style={styles.toggleContainer}>
       <Text style={styles.toggleText}>{title}</Text>
       <Switch
@@ -24,6 +25,7 @@ export default function Toggle({ title, onChange }: ToggleProps) {
         onValueChange={toggleSwitch}
         value={isEnabled} />
     </View>
+    </BaseComponentWrapper>
   );
 }
 
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     paddingBottom: SPACING.MD,
   },
   toggleText: {
-    fontSize: FONT_SIZE.MD,
+    fontSize: FONT_SIZE.LG,
   },
   container: {
     padding: SPACING.MD,

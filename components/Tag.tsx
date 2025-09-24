@@ -1,25 +1,27 @@
 import { useState, useEffect } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { SPACING } from '../helpers/constants';
-
-export function Tag({ title, onSelect, onDeselect }: any) {
+import { TouchableOpacity, Text, View, Dimensions } from 'react-native';
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Interaction from '../helpers/Interaction';
+export function Tag({ title, onSelect, onDeselect, color="green", icon='cat' }: any) {
   const [selected, setSelected] = useState(false);
-  const [color, setColor] = useState(randomHsl(80));
-  function randomHsl(light: number): string {
-    return 'hsla(' + Math.random() * 360 + ', 100%, ' + light + '%, 1)';
-  }
+  const windowWidth = (Dimensions.get('window').width / 5) - 15;
 
   useEffect(() => {
     if (selected) {
       onSelect(title);
+      Interaction.on();
     } else {
       onDeselect && onDeselect(title);
+      Interaction.off();
     }
   }, [selected]);
 
   return (
-    <TouchableOpacity onPress={() => setSelected(!selected)}>
-      <Text style={{ backgroundColor: color, padding: SPACING.MD, textAlign: "center", borderRadius: SPACING.MD, fontWeight: 600, borderWidth: 1, borderColor: selected ? 'black' : "#eaeaea", opacity: selected ? 0.5 : 1 }}>{title}</Text>
+    <TouchableOpacity onPress={() => setSelected(!selected)} style={{display: "flex", alignItems: "center", gap: 5}}>
+      <View style={{borderRadius: "100%", width: windowWidth, height: windowWidth, backgroundColor: selected ? color : "#eaeaea", display: "flex", alignItems: "center", justifyContent:"center"}}>
+            <FontAwesome6 name={icon} size={25} color={selected ? "#eaeaea" : color} />
+      </View>
+      <Text style={{fontWeight: selected ? 600 : 400  }}>{title}</Text>
     </TouchableOpacity>
   );
 }

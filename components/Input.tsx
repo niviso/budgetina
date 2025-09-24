@@ -23,7 +23,7 @@ export default function Input({ onChangeText, placeholder, icon, defaultValue, t
   }, []);
 
   const style = StyleSheet.create({
-    input: { borderBottomWidth: 1, borderColor: "rgba(0,0,0,1)", padding: SPACING.SM, fontSize: FONT_SIZE.MD }
+    input: { backgroundColor: "white", borderRadius: 10, padding: SPACING.LG, fontSize: FONT_SIZE.MD }
   });
   return (
     <BaseComponentWrapper title={title} icon={icon}>

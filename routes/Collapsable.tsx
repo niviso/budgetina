@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { FONT_SIZE, SPACING } from "../helpers/constants";
+import Interaction from "../helpers/Interaction";
 
 interface CollapsibleProps {
   title: string;
@@ -13,9 +14,20 @@ interface CollapsibleProps {
 export default function Collapsible({ title, body, children, open = false }: CollapsibleProps) {
   const [collapsed, setCollapsed] = useState(open);
 
+  function toggle(){
+    if(collapsed){
+      Interaction.off();
+      setCollapsed(false);
+    }
+    else {
+      Interaction.on();
+      setCollapsed(true);
+    }
+  }
+
   return (
     <View>
-      <TouchableOpacity onPress={() => setCollapsed(!collapsed)}>
+      <TouchableOpacity onPress={toggle}>
         <View style={[
           styles.header,
           {
@@ -25,9 +37,9 @@ export default function Collapsible({ title, body, children, open = false }: Col
         ]}>
           <Text style={styles.title}>{title}</Text>
           {collapsed ? (
-            <FontAwesome6 name="chevron-down" size={15} style={styles.icon} />
+            <FontAwesome6 name="chevron-down" anim size={15} style={styles} />
           ) : (
-            <FontAwesome6 name="chevron-up" size={15} style={styles.icon} />
+            <FontAwesome6 name="chevron-up" size={15} style={styles} />
           )}
         </View>
       </TouchableOpacity>

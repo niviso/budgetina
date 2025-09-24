@@ -19,8 +19,8 @@ export default function Router() {
   } = useRouter();
 
   const options:DropDownMenuOptionsType[] = [
-    { label: 'Expense', value: '1', trigger: () => goTo('Expence') },
-    { label: 'Loan', value: '2', trigger: () => goTo('Loans') },
+    { label: 'Expense', value: '1', trigger: () => goTo('Expence'), icon: 'money-bill' },
+    { label: 'Loan', value: '2', trigger: () => goTo('Loans'), icon: 'vault' },
   ];
 
   return (
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 115,
-    backgroundColor: '#eaeaea',
-    borderBottomWidth: 2,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
     boxShadow: '0px 5px 15px 0px rgba(255,255,255,1)',
     zIndex: 99,
     display: 'flex',
