@@ -6,6 +6,7 @@ It is not connected to any database or cloud to make sure your financial data st
 - Overhead view of your finances
 - Loan calculator to see if you can afford the loan or not
 - Add your expences and group them together
+- Haptics to ensure good accessabillity on actions
 - And mutch more!
 
 ## Installation
