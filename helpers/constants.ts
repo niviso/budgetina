@@ -30,5 +30,28 @@ const INITIAL_LOAN_VALUES = {
     LOAN_DURATION: 60,
 } as const;
 
+const COLORS = [
+  "#2677d2",
+  "#6e25c0",
+  "#76c127ff",
+  "#c88d22",
+  "#d234a9",
+  "#812bd2",
+  "#23d191",
+  "#cd2940",
+  "#d2296e",
+  "#20c4c4",
+  "#d25a25",
+  "#4ed217",
+  "#d21c25",
+  "#2598d2",
+  "#c6d220",
+  "#14d2a1",
+  "#d25e17",
+  "#d23315",
+  "#3952d2",
+  "#1fd27c",
+] as const;
 
-export { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES }
+
+export { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES, COLORS }

@@ -15,6 +15,7 @@ interface MortgageCostType {
 function calculateLoanCost(
     initialLoan: number,
     paidOff: number,
+    extraAmorizatation: number,
     interestRate: number,
     amortizationRate: number,
     years: number
@@ -31,10 +32,14 @@ function calculateLoanCost(
     for (let month = 1; month <= months; month++) {
         const monthlyAmortization = remainingBalance * monthlyAmortizationRate;
         const monthlyInterest = remainingBalance * monthlyInterestRate;
-        const monthlyPayment = monthlyAmortization + monthlyInterest;
+        const monthlyPayment = monthlyAmortization + monthlyInterest + extraAmorizatation;
 
         totalPaid += monthlyPayment;
-        remainingBalance -= monthlyAmortization;
+        remainingBalance -= monthlyAmortization + extraAmorizatation;
+        if(remainingBalance < 0){
+            schedule[schedule.length - 1].payment = schedule[schedule.length - 1].remainingBalance;
+            break;
+        }
 
         schedule.push({
             month: month,

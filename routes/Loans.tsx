@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-nati
 import { toLocalCurrency, getTimestamp, formatCurrency } from "../helpers/helpers";
 import Input from "../components/Input";
 import InputSlider from "../components/InputSlider";
-import Button from "./Button";
+import Button from "../components/Button";
 import Collapsable from "./Collapsable";
 import { useData } from "../context/data";
 import { useRouter } from "../context";
@@ -16,6 +16,7 @@ import { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES } from "../helpers/const
 export function Loans() {
   const [intrest, setIntrest] = useState<number>(INITIAL_LOAN_VALUES.INTREST_RATE);
   const [loan, setLoan] = useState<number>(INITIAL_LOAN_VALUES.LOAN);
+  const [extraAmorizatation, setExtraAmorizatation] = useState<number>(0);
   const [amorizationRate, setAmorizationRate] = useState<number>(INITIAL_LOAN_VALUES.AMORTIZATION_RATE);
   const [loanName, setLoanName] = useState<string>(INITIAL_LOAN_VALUES.LOAN_NAME);
   const [paidEarlier, setPaidEarlier] = useState<number>(0);
@@ -27,7 +28,7 @@ export function Loans() {
 
   const { goTo } = useRouter();
   const { newLoan } = useData();
-  const loanDetails = calculateLoanCost(loan, paidEarlier, intrest, amorizationRate, loanDuration);
+  const loanDetails = calculateLoanCost(loan, paidEarlier, extraAmorizatation, intrest, amorizationRate, loanDuration);
 
   const getLoanStats = () => {
     const date = new Date("2025");
@@ -51,6 +52,9 @@ export function Loans() {
         </Text>
         <Text style={styles.statText}>
           Remaining balance: {toLocalCurrency(loanDetails.schedule[monthsInFuture].remainingBalance)}
+        </Text>
+        <Text style={styles.statText}>
+          Loan-to-value-ratio: {Math.round(((loanDetails.schedule[monthsInFuture].remainingBalance/loan)*100))}%
         </Text>
       </View>
     );
@@ -143,6 +147,13 @@ export function Loans() {
             max={25}
             step={STEP.ONE_TENTH}
             onChange={setAmorizationRate}
+          />
+                    <Input
+            icon="landmark"
+            title="Extra amortization"
+            formatOnChange={formatCurrency}
+            defaultValue={extraAmorizatation.toString()}
+            onChangeText={(e: string) => setExtraAmorizatation(parseInt(e.replace(" ", "")))}
           />
           <InputSlider
             icon="money-bill"
