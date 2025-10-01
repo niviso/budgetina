@@ -1,45 +1,79 @@
-import React, { useState } from "react";
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { toLocalCurrency, getTimestamp, formatCurrency } from "../helpers/helpers";
-import Input from "../components/Input";
-import InputSlider from "../components/InputSlider";
-import Button from "../components/Button";
-import Collapsable from "./Collapsable";
-import { useData } from "../context/data";
-import { useRouter } from "../context";
-import DateTimePicker from "../components/DateTimePicker";
-import BaseComponentWrapper from "./BaseComponentWrapper";
-import { calculateMorgageCost } from "../helpers/calculations";
-import { LOAN_TYPES, SPACING, STEP, INITIAL_LOAN_VALUES, FONT_SIZE } from "../helpers/constants";
-import {t} from "../locale";
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import {
+  toLocalCurrency,
+  getTimestamp,
+  formatCurrency,
+} from '../helpers/helpers';
+import Input from '../components/Input';
+import InputSlider from '../components/InputSlider';
+import Button from '../components/Button';
+import Collapsable from './Collapsable';
+import { useData } from '../context/data';
+import { useRouter } from '../context';
+import DateTimePicker from '../components/DateTimePicker';
+import BaseComponentWrapper from './BaseComponentWrapper';
+import { calculateMorgageCost } from '../helpers/calculations';
+import {
+  LOAN_TYPES,
+  SPACING,
+  STEP,
+  INITIAL_LOAN_VALUES,
+  FONT_SIZE,
+} from '../helpers/constants';
+import { t } from '../locale';
 
 export function Loans() {
-  const [intrest, setIntrest] = useState<number>(INITIAL_LOAN_VALUES.INTREST_RATE);
+  const [intrest, setIntrest] = useState<number>(
+    INITIAL_LOAN_VALUES.INTREST_RATE
+  );
   const [loan, setLoan] = useState<number>(INITIAL_LOAN_VALUES.LOAN);
   const [extraAmorizatation, setExtraAmorizatation] = useState<number>(0);
-  const [amorizationRate, setAmorizationRate] = useState<number>(INITIAL_LOAN_VALUES.AMORTIZATION_RATE);
-  const [loanName, setLoanName] = useState<string>(INITIAL_LOAN_VALUES.LOAN_NAME);
-  const [paidEarlier, setPaidEarlier] = useState<number>(0);
+  const [assetValue, setAssetValue] = useState<number>(
+    INITIAL_LOAN_VALUES.ASSET_VALUE
+  );
+  const [amorizationRate, setAmorizationRate] = useState<number>(
+    INITIAL_LOAN_VALUES.AMORTIZATION_RATE
+  );
+  const [loanName, setLoanName] = useState<string>(
+    INITIAL_LOAN_VALUES.LOAN_NAME
+  );
+  const [paidEarlier, setPaidEarlier] = useState<number>(
+    INITIAL_LOAN_VALUES.LOAN_ALREADY_PAID_OFF
+  );
   const [created, setCreated] = useState<string>(getTimestamp());
-  const [paymentDate, setPaymentDate] = useState<number>(INITIAL_LOAN_VALUES.PAYMENT_DATE);
-  const [loanDuration, setLoanDuration] = useState<number>(INITIAL_LOAN_VALUES.LOAN_DURATION);
+  const [paymentDate, setPaymentDate] = useState<number>(
+    INITIAL_LOAN_VALUES.PAYMENT_DATE
+  );
+  const [loanDuration, setLoanDuration] = useState<number>(
+    INITIAL_LOAN_VALUES.LOAN_DURATION
+  );
   const [monthsInFuture, setMonthsInFuture] = useState<number>(0);
-  const [selectedLoanType, setSelectedLoanType] = useState<string>("");
+  const [selectedLoanType, setSelectedLoanType] = useState<string>('');
 
   const { goTo } = useRouter();
   const { newLoan } = useData();
-  const loanDetails = calculateMorgageCost(loan, paidEarlier, extraAmorizatation, intrest, amorizationRate, loanDuration);
+  const loanDetails = calculateMorgageCost(
+    loan,
+    paidEarlier,
+    extraAmorizatation,
+    intrest,
+    amorizationRate,
+    loanDuration
+  );
 
   const getLoanStats = () => {
-    const date = new Date("2025");
-    const currentMonth = date.getMonth();
-    date.setMonth(currentMonth + monthsInFuture);
-    const title = date.toISOString().split("T")[0].substring(0, 7);
     return (
       <View style={styles.statsContainer}>
         <InputSlider
           icon="wave-square"
-          title={title}
+          title={loanDetails.schedule[monthsInFuture].date}
           suffix=" months in the future"
           defaultValue={monthsInFuture}
           min={0}
@@ -48,13 +82,31 @@ export function Loans() {
           onChange={setMonthsInFuture}
         />
         <Text style={styles.statText}>
-          Payment: {toLocalCurrency(loanDetails.schedule[monthsInFuture].payment)}
+          Payment:{' '}
+          {toLocalCurrency(loanDetails.schedule[monthsInFuture].payment)}
         </Text>
         <Text style={styles.statText}>
-          Remaining balance: {toLocalCurrency(loanDetails.schedule[monthsInFuture].remainingBalance)}
+          Principal:{' '}
+          {toLocalCurrency(loanDetails.schedule[monthsInFuture].principal)}
         </Text>
         <Text style={styles.statText}>
-          Loan-to-value-ratio: {Math.round(((loanDetails.schedule[monthsInFuture].remainingBalance/loan)*100))}%
+          Intrest:{' '}
+          {toLocalCurrency(loanDetails.schedule[monthsInFuture].interest)}
+        </Text>
+        <Text style={styles.statText}>
+          Remaining balance:{' '}
+          {toLocalCurrency(
+            loanDetails.schedule[monthsInFuture].remainingBalance
+          )}
+        </Text>
+        <Text style={styles.statText}>
+          Loan-to-value-ratio:{' '}
+          {Math.round(
+            (loanDetails.schedule[monthsInFuture].remainingBalance /
+              assetValue) *
+              100
+          )}
+          %
         </Text>
       </View>
     );
@@ -69,40 +121,77 @@ export function Loans() {
       created,
       paymentDate: 25,
     });
-    goTo("Home");
+    goTo('Home');
   };
+
+  function updateLoan(value: number) {
+    if (paidEarlier > value) {
+      setPaidEarlier(0);
+    }
+    setLoan(value);
+  }
+
+  function updatePaidEarlier(value: number) {
+    if (value > loan) {
+      setPaidEarlier(0);
+    } else {
+      setPaidEarlier(0);
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Loan calculator</Text>
         <Text style={styles.headerDescription}>
-          This loan calculator is a handy tool that helps you estimate your monthly loan payments,
-          total interest, and repayment schedule based on the loan amount, interest rate, and loan term.
-          It’s perfect for planning mortgages, car loans, personal loans, or any other type of installment loan.
+          This loan calculator is a handy tool that helps you estimate your
+          monthly loan payments, total interest, and repayment schedule based on
+          the loan amount, interest rate, and loan term. It’s perfect for
+          planning mortgages, car loans, personal loans, or any other type of
+          installment loan.
         </Text>
       </View>
       <View style={styles.container}>
-        <Collapsable title="Loan base stats" body="Add the basic information about your loan.">
+        <Collapsable
+          title="Loan base stats"
+          body="Add the basic information about your loan."
+        >
           <Input
             icon="landmark"
             title="Loan name"
+            value={loanName}
             defaultValue={loanName}
             onChangeText={setLoanName}
           />
           <Input
             icon="landmark"
+            title="Asset value"
+            value={assetValue}
+            formatOnChange={formatCurrency}
+            defaultValue={assetValue.toString()}
+            onChangeText={(e: string) =>
+              setAssetValue(parseInt(e.replace(' ', '')))
+            }
+          />
+          <Input
+            icon="landmark"
             title="Original loan"
+            value={loan}
             formatOnChange={formatCurrency}
             defaultValue={loan.toString()}
-            onChangeText={(e: string) => setLoan(parseInt(e.replace(" ", "")))}
+            onChangeText={(e: string) =>
+              updateLoan(parseInt(e.replace(' ', '')))
+            }
           />
           <Input
             icon="landmark"
             title="Money already paid off"
             formatOnChange={formatCurrency}
+            value={paidEarlier}
             defaultValue={paidEarlier.toString()}
-            onChangeText={(e: string) => setPaidEarlier(parseInt(e.replace(" ", "")))}
+            onChangeText={(e: string) =>
+              updatePaidEarlier(parseInt(e.replace(' ', '')))
+            }
           />
         </Collapsable>
         <Collapsable title="Loan type" body="Select the loan type">
@@ -117,7 +206,10 @@ export function Loans() {
                   <View
                     style={[
                       styles.radioButton,
-                      { backgroundColor: selectedLoanType === loanType ? "black" : "white" },
+                      {
+                        backgroundColor:
+                          selectedLoanType === loanType ? 'black' : 'white',
+                      },
                     ]}
                   />
                   <Text style={styles.loanTypeText}>{loanType}</Text>
@@ -126,7 +218,10 @@ export function Loans() {
             </View>
           </BaseComponentWrapper>
         </Collapsable>
-        <Collapsable title="Rates and duration" body="Add the intrest & amortization rates and your loan duration.">
+        <Collapsable
+          title="Rates and duration"
+          body="Add the intrest & amortization rates and your loan duration."
+        >
           <DateTimePicker title="Start date" onChange={setCreated} />
           <InputSlider
             icon="wave-square"
@@ -148,12 +243,14 @@ export function Loans() {
             step={STEP.ONE_TENTH}
             onChange={setAmorizationRate}
           />
-                    <Input
+          <Input
             icon="landmark"
             title="Extra amortization"
             formatOnChange={formatCurrency}
             defaultValue={extraAmorizatation.toString()}
-            onChangeText={(e: string) => setExtraAmorizatation(parseInt(e.replace(" ", "")))}
+            onChangeText={(e: string) =>
+              setExtraAmorizatation(parseInt(e.replace(' ', '')))
+            }
           />
           <InputSlider
             icon="money-bill"
@@ -176,7 +273,10 @@ export function Loans() {
             title="Due date"
           />
         </Collapsable>
-        <Collapsable title="Loan rules" body="Extra rules set for adjustments of the loan">
+        {/* <Collapsable
+          title="Loan rules"
+          body="Extra rules set for adjustments of the loan"
+        >
           <InputSlider
             icon="money-bill"
             title="Intrest rate deduction"
@@ -191,13 +291,16 @@ export function Loans() {
             title="Intrest rate deduction roof"
             formatOnChange={formatCurrency}
             defaultValue={loan.toString()}
-            onChangeText={(e: string) => setLoan(parseInt(e.replace(" ", "")))}
+            onChangeText={(e: string) => setLoan(parseInt(e.replace(' ', '')))}
           />
-        </Collapsable>
-        <Collapsable title="Loan information & stats" body="See what your loan will cost in the future">
+        </Collapsable> */}
+        <Collapsable
+          title="Loan information & stats"
+          body="See what your loan will cost in the future"
+        >
           {getLoanStats()}
         </Collapsable>
-        <Button title="Add loan" onPress={addLoan} />
+        <Button title="Submit" onPress={addLoan} />
       </View>
     </ScrollView>
   );
@@ -208,12 +311,12 @@ const styles = StyleSheet.create({
     paddingBottom: 300,
   },
   header: {
-    backgroundColor: "pink",
+    backgroundColor: 'pink',
     padding: SPACING.LG,
   },
   headerTitle: {
     fontSize: FONT_SIZE.LG,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   headerDescription: {
     marginTop: SPACING.LG,
@@ -228,20 +331,20 @@ const styles = StyleSheet.create({
     gap: SPACING.LG,
   },
   statText: {
-    fontSize: FONT_SIZE.MD,
+    fontSize: FONT_SIZE.LG,
   },
   loanTypesContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "row",
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
     gap: SPACING.LG,
   },
   loanTypeItem: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: SPACING.LG,
-    width: "100%",
+    width: '100%',
   },
   radioButton: {
     borderRadius: 100,

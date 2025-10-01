@@ -9,8 +9,8 @@ export default function Button({ onPress, title }: any) {
     onPress();
   }
   return (
-    <TouchableOpacity onPress={_onPress} style={{ marginTop: SPACING.MD, width: "100%", borderRadius: 20, padding: SPACING.MD, backgroundColor: "#8dd5ddff" }}>
-      <Text style={{ textAlign: "center", fontSize: FONT_SIZE.MD }}>{title}</Text>
+    <TouchableOpacity onPress={_onPress} style={{ marginTop: SPACING.MD, width: "100%", borderRadius: SPACING.MD, padding: SPACING.MD, backgroundColor: "#8dd5ddff" }}>
+      <Text style={{ textAlign: "center", fontSize: FONT_SIZE.LG }}>{title}</Text>
     </TouchableOpacity>
   );
 }

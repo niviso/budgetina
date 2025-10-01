@@ -55,7 +55,7 @@ export default function Collapsible({ title, body, children, open = false }: Col
 
 const styles = StyleSheet.create({
   header: {
-    padding: SPACING.MD,
+    padding: SPACING.LG,
     backgroundColor: "#eaeaea",
     display: "flex",
     gap: SPACING.MD,
@@ -67,12 +67,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+    fontSize: 18
   },
   icon: {
     alignSelf: "center",
   },
   content: {
-    padding: SPACING.MD,
+    padding: SPACING.LG,
     backgroundColor: "#eaeaea",
     display: "flex",
     gap: SPACING.MD,
