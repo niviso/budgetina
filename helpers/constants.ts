@@ -1,9 +1,6 @@
 const LOAN_TYPES = [
-    "Payday loan",
-    "House Mortgage",
-    "Student loan",
-    "BNPL loan",
-    "Blanco loan",
+    "Mortgage",
+    "Credit"
 ] as const;
 
 const SPACING = {

@@ -141,159 +141,131 @@ export function Loans() {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Loan calculator</Text>
-        <Text style={styles.headerDescription}>
-          This loan calculator is a handy tool that helps you estimate your
-          monthly loan payments, total interest, and repayment schedule based on
-          the loan amount, interest rate, and loan term. It’s perfect for
-          planning mortgages, car loans, personal loans, or any other type of
-          installment loan.
+      <View style={styles.container}>
+              <View
+        style={{
+          paddingHorizontal: SPACING.LG,
+          paddingTop: SPACING.XL,
+          borderBottomWidth: 1,
+        }}
+      >
+        <Text
+          style={{
+            paddingBottom: SPACING.MD,
+            fontSize: FONT_SIZE.MD,
+            letterSpacing: 2,
+          }}
+        >
+          BASIC DETAILS
         </Text>
       </View>
-      <View style={styles.container}>
-        <Collapsable
-          title="Loan base stats"
-          body="Add the basic information about your loan."
-        >
-          <Input
-            icon="landmark"
-            title="Loan name"
-            value={loanName}
-            defaultValue={loanName}
-            onChangeText={setLoanName}
-          />
-          <Input
-            icon="landmark"
-            title="Asset value"
-            value={assetValue}
-            formatOnChange={formatCurrency}
-            defaultValue={assetValue.toString()}
-            onChangeText={(e: string) =>
-              setAssetValue(parseInt(e.replace(' ', '')))
-            }
-          />
-          <Input
-            icon="landmark"
-            title="Original loan"
-            value={loan}
-            formatOnChange={formatCurrency}
-            defaultValue={loan.toString()}
-            onChangeText={(e: string) =>
-              updateLoan(parseInt(e.replace(' ', '')))
-            }
-          />
-          <Input
-            icon="landmark"
-            title="Money already paid off"
-            formatOnChange={formatCurrency}
-            value={paidEarlier}
-            defaultValue={paidEarlier.toString()}
-            onChangeText={(e: string) =>
-              updatePaidEarlier(parseInt(e.replace(' ', '')))
-            }
-          />
-        </Collapsable>
-        <Collapsable title="Loan type" body="Select the loan type">
-          <BaseComponentWrapper icon="landmark">
-            <View style={styles.loanTypesContainer}>
-              {LOAN_TYPES.map((loanType, index) => (
-                <TouchableOpacity
-                  key={`loan-type-${index}`}
-                  style={styles.loanTypeItem}
-                  onPress={() => setSelectedLoanType(loanType)}
-                >
-                  <View
-                    style={[
-                      styles.radioButton,
-                      {
-                        backgroundColor:
-                          selectedLoanType === loanType ? 'black' : 'white',
-                      },
-                    ]}
-                  />
-                  <Text style={styles.loanTypeText}>{loanType}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </BaseComponentWrapper>
-        </Collapsable>
-        <Collapsable
-          title="Rates and duration"
-          body="Add the intrest & amortization rates and your loan duration."
-        >
-          <DateTimePicker title="Start date" onChange={setCreated} />
-          <InputSlider
-            icon="wave-square"
-            title="Intrest rate"
-            suffix="%"
-            defaultValue={intrest.toString()}
-            min={0}
-            max={25}
-            step={STEP.ONE_TENTH}
-            onChange={setIntrest}
-          />
-          <InputSlider
-            icon="wave-square"
-            title="Amortization rate"
-            suffix="%"
-            defaultValue={amorizationRate}
-            min={1}
-            max={25}
-            step={STEP.ONE_TENTH}
-            onChange={setAmorizationRate}
-          />
-          <Input
-            icon="landmark"
-            title="Extra amortization"
-            formatOnChange={formatCurrency}
-            defaultValue={extraAmorizatation.toString()}
-            onChangeText={(e: string) =>
-              setExtraAmorizatation(parseInt(e.replace(' ', '')))
-            }
-          />
-          <InputSlider
-            icon="money-bill"
-            title="Loan duration"
-            suffix=" years"
-            defaultValue={loanDuration.toString()}
-            min={1}
-            max={50}
-            step={STEP.FULL}
-            onChange={setLoanDuration}
-          />
-          <InputSlider
-            min={1}
-            max={31}
-            step={STEP.FULL}
-            defaultValue={25}
-            prefix="On the "
-            suffix="th each month."
-            onChange={setPaymentDate}
-            title="Due date"
-          />
-        </Collapsable>
-        {/* <Collapsable
-          title="Loan rules"
-          body="Extra rules set for adjustments of the loan"
-        >
-          <InputSlider
-            icon="money-bill"
-            title="Intrest rate deduction"
-            defaultValue={intrest.toString()}
-            min={0}
-            max={100}
-            step={STEP.HALF}
-            onChange={setIntrest}
-          />
-          <Input
-            icon="landmark"
-            title="Intrest rate deduction roof"
-            formatOnChange={formatCurrency}
-            defaultValue={loan.toString()}
-            onChangeText={(e: string) => setLoan(parseInt(e.replace(' ', '')))}
-          />
-        </Collapsable> */}
+        <Input
+          icon="landmark"
+          title="Name your loan"
+          value={loanName}
+          defaultValue={loanName}
+          onChangeText={setLoanName}
+        />
+        <Input
+          icon="landmark"
+          title="Enter property or asset value"
+          value={assetValue}
+          formatOnChange={formatCurrency}
+          defaultValue={assetValue.toString()}
+          onChangeText={(e: string) =>
+            setAssetValue(parseInt(e.replace(' ', '')))
+          }
+        />
+        <Input
+          icon="landmark"
+          title="Original loan ammount"
+          value={loan}
+          formatOnChange={formatCurrency}
+          defaultValue={loan.toString()}
+          onChangeText={(e: string) => updateLoan(parseInt(e.replace(' ', '')))}
+        />
+        <Input
+          icon="landmark"
+          title="How much have you already paid off your loan?"
+          formatOnChange={formatCurrency}
+          value={paidEarlier}
+          defaultValue={paidEarlier.toString()}
+          onChangeText={(e: string) =>
+            updatePaidEarlier(parseInt(e.replace(' ', '')))
+          }
+        />
+        <BaseComponentWrapper icon="landmark" title="Set a loan type">
+          <View style={styles.loanTypesContainer}>
+            {LOAN_TYPES.map((loanType, index) => (
+              <TouchableOpacity
+                key={`loan-type-${index}`}
+                style={styles.loanTypeItem}
+                onPress={() => setSelectedLoanType(loanType)}
+              >
+                <View
+                  style={[
+                    styles.radioButton,
+                    {
+                      backgroundColor:
+                        selectedLoanType === loanType ? 'black' : 'white',
+                    },
+                  ]}
+                />
+                <Text style={styles.loanTypeText}>{loanType}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </BaseComponentWrapper>
+        <DateTimePicker title="Start date" onChange={setCreated} />
+        <InputSlider
+          icon="wave-square"
+          title="Intrest rate"
+          suffix="%"
+          defaultValue={intrest.toString()}
+          min={0}
+          max={25}
+          step={STEP.ONE_TENTH}
+          onChange={setIntrest}
+        />
+        <InputSlider
+          icon="wave-square"
+          title="Amortization rate"
+          suffix="%"
+          defaultValue={amorizationRate}
+          min={1}
+          max={25}
+          step={STEP.ONE_TENTH}
+          onChange={setAmorizationRate}
+        />
+        <Input
+          icon="landmark"
+          title="Extra amortization each month"
+          formatOnChange={formatCurrency}
+          defaultValue={extraAmorizatation.toString()}
+          onChangeText={(e: string) =>
+            setExtraAmorizatation(parseInt(e.replace(' ', '')))
+          }
+        />
+        <InputSlider
+          icon="money-bill"
+          title="Loan duration"
+          suffix=" years"
+          defaultValue={loanDuration.toString()}
+          min={1}
+          max={50}
+          step={STEP.FULL}
+          onChange={setLoanDuration}
+        />
+        <InputSlider
+          min={1}
+          max={31}
+          step={STEP.FULL}
+          defaultValue={25}
+          prefix="On the "
+          suffix="th each month."
+          onChange={setPaymentDate}
+          title="Due date"
+        />
         <Collapsable
           title="Loan information & stats"
           body="See what your loan will cost in the future"
@@ -311,11 +283,10 @@ const styles = StyleSheet.create({
     paddingBottom: 300,
   },
   header: {
-    backgroundColor: 'pink',
-    padding: SPACING.LG,
+    padding: SPACING.XL,
   },
   headerTitle: {
-    fontSize: FONT_SIZE.LG,
+    fontSize: FONT_SIZE.XL,
     fontWeight: '600',
   },
   headerDescription: {
@@ -325,7 +296,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: SPACING.LG,
-    gap: SPACING.LG,
+    gap: SPACING.MD,
   },
   statsContainer: {
     gap: SPACING.LG,
@@ -338,6 +309,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     gap: SPACING.LG,
+    paddingTop: SPACING.MD,
   },
   loanTypeItem: {
     display: 'flex',

@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     height: 115,
     backgroundColor: 'white',
     borderBottomWidth: 1,
+    borderBottomColor: "rgba(0,0,0,0.1)",
     boxShadow: '0px 5px 15px 0px rgba(255,255,255,1)',
     zIndex: 99,
     display: 'flex',

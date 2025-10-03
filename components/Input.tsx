@@ -16,8 +16,8 @@ type InputProps = {
 
 const style = StyleSheet.create({
   input: {
-    backgroundColor: 'white',
-    borderRadius: 10,
+    borderWidth: 1,
+    borderRadius: 5,
     padding: SPACING.LG,
     fontSize: FONT_SIZE.MD,
   },
@@ -34,6 +34,7 @@ export default function Input({
   formatOnChange,
 }: InputProps) {
   const [internalValue, setInternalValue] = useState<string | number | undefined>(defaultValue);
+  const [focus,setFocus] = useState(false);
   function _onChange(e: string) {
     const newValue = formatOnChange ? formatOnChange(e) : e;
     setInternalValue(newValue);
@@ -55,10 +56,12 @@ export default function Input({
   }, []);
 
   return (
-    <BaseComponentWrapper title={title} icon={icon}>
+    <BaseComponentWrapper title={title} icon={icon} active={focus}>
       <TextInput
         style={style.input}
         keyboardType={type}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
         onChangeText={(e) => _onChange(e)}
         placeholder={placeholder}
         value={internalValue as string}
